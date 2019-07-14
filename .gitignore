@@ -1,0 +1,8 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/BilgeAdam.Sinemaskop/BilgeAdam.Sinemaskop/bin/Debug/netcoreapp2.1
+/BilgeAdam.Sinemaskop/.vs/BilgeAdam.Sinemaskop/v15
+/BilgeAdam.Sinemaskop/BilgeAdam.Sinemaskop/obj

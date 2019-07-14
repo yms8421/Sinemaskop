@@ -1,0 +1,53 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    var codes = new string[5] { "A", "B", "C", "D", "E" };
+}
+
+<div class="row" id="mainRow">
+    <div class="col-3">
+        <div class="form-group">
+            <label>Film</label>
+            <select class="form-control"></select>
+        </div>
+        <button class="btn btn-primary">Seç</button>
+    </div>
+    <div class="col-9">
+        <h3>Koltuklar</h3>
+        @for (int i = 0; i < 5; i++)
+        {
+            <div class="row">
+                @for (int j = 0; j < 5; j++)
+                {
+                    <div class="col">
+                        <div class="card" style="width: 100px;">
+                            <img src="~/images/seat.svg" class="card-img-top" />
+                            <div class="card-body text-center">
+                                <h5 class="card-title">@codes[i] @(j + 1)</h5>
+                                <button class="animation-example btn btn-primary btn-sm"
+                                        data-anim="flipInTop"
+                                        code="@string.Format("{0}{1}", codes[i], (j + 1))"
+                                        v-on:click="selectSeat($event)"
+                                        >
+                                    Seç
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+</div>
+@section Scripts {
+    <script>
+        new Vue({
+            el: "#mainRow",
+            methods: {
+                selectSeat: function (e) {
+                    var code = e.target.attributes["code"].value;
+                    alert(code);
+                }
+            }
+        });
+    </script>
+}

@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - BilgeAdam.Sinemaskop</title>
+    <style>
+        img.card-img-top {
+            width: 50px;
+            height: 50px;
+            margin: 5px auto;
+        }
+    </style>
+    <link href="~/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/css/reboundgen.css" rel="stylesheet" />
+    <link href="~/css/flip.css" rel="stylesheet" />
+    <script src="~/js/jquery-3.4.1.min.js"></script>
+    <script src="~/js/vue.js"></script>
+</head>
+<body>
+    @*Menü Başlangıç*@
+    <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+        <h5 class="my-0 mr-md-auto font-weight-normal">Sinemaskop</h5>
+        <nav class="my-2 my-md-0 mr-md-3">
+            <a class="p-2 text-dark" href="#">Ana Sayfa</a>
+            <a class="p-2 text-dark" href="#">Salonlar</a>
+            <a class="p-2 text-dark" href="#">Filmler</a>
+            <a class="p-2 text-dark" href="#">Yönetim</a>
+        </nav>
+    </div>
+    @* Menü Bitişi *@
+    <div class="container">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; 2019 - BilgeAdam.Sinemaskop</p>
+        </footer>
+    </div>
+    <script src="~/js/flip.js"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
