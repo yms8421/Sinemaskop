@@ -27,5 +27,18 @@ namespace BilgeAdam.Sinemaskop.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        [HttpGet]
+        public IActionResult Movies()
+        {
+            var movies = context.Movies.Select(i => new { i.Id, Text = i.Name  }).ToList();
+            return Json(movies);
+        }
+
+        [HttpPost]
+        public IActionResult SaveSeats([FromBody]IEnumerable<string> places)
+        {
+            return Json("tamam :)");
+        }
     }
 }

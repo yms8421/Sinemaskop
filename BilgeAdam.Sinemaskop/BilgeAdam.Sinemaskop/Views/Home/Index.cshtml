@@ -7,27 +7,30 @@
     <div class="col-3">
         <div class="form-group">
             <label>Film</label>
-            <select class="form-control"></select>
+            <select class="form-control" v-model="movieId" @@change="movieChanged">
+                <option value="0">Seçiniz</option>
+                <option v-for="m in movies" v-bind:value="m.id">{{m.text}}</option>
+            </select>
         </div>
-        <button class="btn btn-primary">Seç</button>
+        <button class="btn btn-primary" @@click="selectMovie">Seç</button>
+        <button class="btn btn-success" @@click="savePlaces">Tamamla</button>
     </div>
     <div class="col-9">
-        <h3>Koltuklar</h3>
+        <h3>Koltuklar ( *** {{movieName}} *** )</h3>
         @for (int i = 0; i < 5; i++)
         {
             <div class="row">
                 @for (int j = 0; j < 5; j++)
                 {
                     <div class="col">
-                        <div class="card" style="width: 100px;">
+                        <div class="card" :class='{ selectedCard: getSelected("@string.Format("{0}{1}", codes[i], (j + 1))")}' style="width: 100px;">
                             <img src="~/images/seat.svg" class="card-img-top" />
                             <div class="card-body text-center">
                                 <h5 class="card-title">@codes[i] @(j + 1)</h5>
-                                <button class="animation-example btn btn-primary btn-sm"
+                                <button v-if="movieId != 0" class="animation-example btn btn-primary btn-sm"
                                         data-anim="flipInTop"
                                         code="@string.Format("{0}{1}", codes[i], (j + 1))"
-                                        v-on:click="selectSeat($event)"
-                                        >
+                                        v-on:click="selectSeat($event)">
                                     Seç
                                 </button>
                             </div>
@@ -40,14 +43,10 @@
 </div>
 @section Scripts {
     <script>
-        new Vue({
-            el: "#mainRow",
-            methods: {
-                selectSeat: function (e) {
-                    var code = e.target.attributes["code"].value;
-                    alert(code);
-                }
-            }
-        });
+        var pageOptions = {
+            getMovies : '@Url.Action("Movies", "Home")',
+            saveplaces : '@Url.Action("SaveSeats", "Home")',
+        }
     </script>
+    <script src="~/js/home/index.js"></script>
 }

@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 
 namespace BilgeAdam.Sinemaskop
 {
@@ -23,21 +24,28 @@ namespace BilgeAdam.Sinemaskop
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.Configure<CookiePolicyOptions>(options =>
             {
-                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
+            services.Configure<AppSettings>(Configuration); //Appsettings.json içerisindeki veriler Appsettings adındaki class propertylerine maplensin. Dolayısı ile DI aracılığı ile tüm classslaqrdan erişilebilr
 
-            services.AddDbContext<SinContext>(options =>
-            {
-                options.UseSqlServer("Server=.;Database=SinemaskopDB;Trusted_Connection=True");
-            });
+            //TODO: Bknz: SinContext OnConfiguring methodu
+            //Yöntem 1
+            //services.AddDbContext<SinContext>(options =>
+            //{
+            //    //var configuration = new ConfigurationBuilder()
+            //    //    .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+            //    //    .AddJsonFile("appsettings.json")
+            //    //    .Build();
+            //    //options.UseSqlServer(configuration.GetSection("ConnectionStrings:SinContext").Path);
+            //});
 
+            //TODO: INotifyPropertyChanged => MVVM .NET interface'i okuyun :)
+            services.AddDbContext<SinContext>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
