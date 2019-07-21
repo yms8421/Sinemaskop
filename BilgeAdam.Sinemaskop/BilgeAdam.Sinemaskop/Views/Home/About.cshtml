@@ -1,0 +1,23 @@
+﻿@model BilgeAdam.Sinemaskop.Models.UserSession
+@{
+    ViewData["Title"] = "Hakkımızda";
+    ViewBag.Date = new DateTime(2018, 2, 9);
+    TempData["UserInfo"] = "Kalıcı ve geçici veri";
+}
+
+<h2>Hakkımızda Sayfası</h2>
+
+@if (Model.IsLoggedIn)
+{
+    <h3>@Model.UserName Hakkında Bilgiler</h3>
+    <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris in lectus molestie tellus suscipit auctor. Donec ac ante odio. Vivamus auctor molestie turpis, et gravida dolor finibus et. Mauris vehicula aliquet nulla, id scelerisque dolor vulputate et. Curabitur mattis, nisi eget venenatis condimentum, velit turpis mollis tortor, eu dictum ipsum nisi eget sem. Praesent justo justo, tempor vitae nunc at, ullamcorper accumsan libero. Fusce eu risus semper, tempor diam iaculis, rutrum purus. Praesent tristique ligula tellus, quis blandit velit dapibus et. Proin malesuada feugiat ante. Aliquam ac lectus turpis. Aliquam blandit magna eu sollicitudin aliquam.
+    </p>
+    <p>
+        Curabitur eu interdum lectus, a suscipit nisl. Maecenas efficitur ligula dapibus, fermentum elit non, placerat nisi. Suspendisse eget nisi enim. Phasellus et condimentum lacus. Curabitur sit amet bibendum orci, ac pharetra massa. Nulla facilisi. Aliquam nec commodo elit. Praesent pretium vehicula efficitur. Sed vulputate condimentum vulputate. Morbi odio leo, hendrerit at pretium quis, dapibus quis lectus. Aliquam nulla eros, ullamcorper a porttitor volutpat, consectetur nec felis.
+    </p>
+}
+
+
+<div>Erişim Tarihi :  @ViewData["Date1"]</div>
+<div>Erişim Tarihi :  @ViewBag.Date2</div>

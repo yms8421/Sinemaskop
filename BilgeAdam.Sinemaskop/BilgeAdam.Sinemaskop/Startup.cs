@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
 
 namespace BilgeAdam.Sinemaskop
@@ -26,11 +27,6 @@ namespace BilgeAdam.Sinemaskop
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.Configure<CookiePolicyOptions>(options =>
-            {
-                options.CheckConsentNeeded = context => true;
-                options.MinimumSameSitePolicy = SameSiteMode.None;
-            });
             services.Configure<AppSettings>(Configuration); //Appsettings.json içerisindeki veriler Appsettings adındaki class propertylerine maplensin. Dolayısı ile DI aracılığı ile tüm classslaqrdan erişilebilr
 
             //TODO: Bknz: SinContext OnConfiguring methodu
@@ -46,7 +42,8 @@ namespace BilgeAdam.Sinemaskop
 
             //TODO: INotifyPropertyChanged => MVVM .NET interface'i okuyun :)
             services.AddDbContext<SinContext>();
-
+            services.AddSession();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
@@ -65,8 +62,7 @@ namespace BilgeAdam.Sinemaskop
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseCookiePolicy();
-
+            app.UseSession();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

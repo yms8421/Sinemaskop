@@ -3,6 +3,8 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using BilgeAdam.Sinemaskop.Models;
 using BilgeAdam.Sinemaskop.Connection;
+using Microsoft.AspNetCore.Http;
+using System;
 
 namespace BilgeAdam.Sinemaskop.Controllers
 {
@@ -16,7 +18,26 @@ namespace BilgeAdam.Sinemaskop.Controllers
         }
         public IActionResult Index()
         {
+            if (HttpContext.Session.IsAvailable)
+            {
+                if (!HttpContext.Session.Keys.Contains("userName"))
+                {
+                    HttpContext.Session.SetString("userName", "can.perk");
+                }
+            }
             return View();
+        }
+
+        public IActionResult About()
+        {
+            ViewData["Date1"] = DateTime.Now;
+            ViewBag.Date2 = DateTime.Now;
+
+            var user = new UserSession
+            {
+                UserName = HttpContext.Session.GetString("userName")
+            };
+            return View(user);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

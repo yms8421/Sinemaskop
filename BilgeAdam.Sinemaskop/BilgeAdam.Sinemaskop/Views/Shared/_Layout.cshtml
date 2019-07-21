@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http;
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -18,11 +20,21 @@
     <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
         <h5 class="my-0 mr-md-auto font-weight-normal">Sinemaskop</h5>
         <nav class="my-2 my-md-0 mr-md-3">
-            <a class="p-2 text-dark" href="#">Ana Sayfa</a>
-            <a class="p-2 text-dark" href="#">Salonlar</a>
+            <a class="p-2 text-dark" href="@Url.Action("Index", "Home")">Ana Sayfa</a>
+            <a class="p-2 text-dark" href="@Url.Action("About", "Home")">Salonlar</a>
             <a class="p-2 text-dark" href="#">Filmler</a>
             <a class="p-2 text-dark" href="#">Yönetim</a>
         </nav>
+        <a class="btn btn-outline-primary" href="#">
+            @if (HttpContextAccessor.HttpContext.Session.GetString("userName") == null)
+            {
+                <span>Giriş Yap</span>
+            }
+            else
+            {
+                <span>@HttpContextAccessor.HttpContext.Session.GetString("userName")</span>
+            }
+        </a>
     </div>
     @* Menü Bitişi *@
     <div class="container">
