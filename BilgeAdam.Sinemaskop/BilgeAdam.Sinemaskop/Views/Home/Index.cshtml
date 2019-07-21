@@ -12,7 +12,6 @@
                 <option v-for="m in movies" v-bind:value="m.id">{{m.text}}</option>
             </select>
         </div>
-        <button class="btn btn-primary" @@click="selectMovie">Seç</button>
         <button class="btn btn-success" @@click="savePlaces">Tamamla</button>
     </div>
     <div class="col-9">
@@ -23,11 +22,12 @@
                 @for (int j = 0; j < 5; j++)
                 {
                     <div class="col">
-                        <div class="card" :class='{ selectedCard: getSelected("@string.Format("{0}{1}", codes[i], (j + 1))")}' style="width: 100px;">
+                        @{ var seatCode = string.Format("{0}{1}", codes[i], (j + 1)); }
+                        <div class="card" :class='{ selectedCard: getSelected("@seatCode"),soldCard: getSold("@seatCode") }' style="width: 100px;">
                             <img src="~/images/seat.svg" class="card-img-top" />
                             <div class="card-body text-center">
                                 <h5 class="card-title">@codes[i] @(j + 1)</h5>
-                                <button v-if="movieId != 0" class="animation-example btn btn-primary btn-sm"
+                                <button v-if="movieId != 0 && !getSold('@seatCode')" class="animation-example btn btn-primary btn-sm"
                                         data-anim="flipInTop"
                                         code="@string.Format("{0}{1}", codes[i], (j + 1))"
                                         v-on:click="selectSeat($event)">
@@ -45,7 +45,8 @@
     <script>
         var pageOptions = {
             getMovies : '@Url.Action("Movies", "Home")',
-            saveplaces : '@Url.Action("SaveSeats", "Home")',
+            saveplaces: '@Url.Action("SaveSeats", "Home")',
+            getTickets: '@Url.Action("GetSoldTickets", "Home")'
         }
     </script>
     <script src="~/js/home/index.js"></script>

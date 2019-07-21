@@ -1,4 +1,4 @@
-﻿$(document).ready(function () {
+﻿function addButtonAnimation() {
     $(".animation-example").on("mouseover", function () {
         var anim = $(this).attr("data-anim");
         $(this).removeClass(anim);
@@ -12,4 +12,4 @@
             }
         );
     });
-});
+}

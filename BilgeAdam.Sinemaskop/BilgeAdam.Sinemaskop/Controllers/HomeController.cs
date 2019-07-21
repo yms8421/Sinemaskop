@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using BilgeAdam.Sinemaskop.Models;
 using BilgeAdam.Sinemaskop.Connection;
@@ -36,9 +33,33 @@ namespace BilgeAdam.Sinemaskop.Controllers
         }
 
         [HttpPost]
-        public IActionResult SaveSeats([FromBody]IEnumerable<string> places)
+        public IActionResult SaveSeats([FromBody]TicketSaleViewModel model)
         {
-            return Json("tamam :)");
+            if (model == null)
+            {
+                return Json(false);
+            }
+            foreach (var seat in model.Seats)
+            {
+                var ticket = new Ticket
+                {
+                    MovieId = model.MovieId,
+                    SeatNumber = seat
+                };
+                context.Tickets.Add(ticket);
+            }
+            var result = context.SaveChanges();
+            return Json(result > 0);
+        }
+
+        [HttpGet]
+        public IActionResult GetSoldTickets(int id)
+        {
+            var seats = context.Tickets
+                               .Where(i => i.MovieId == id)
+                               .Select(i => i.SeatNumber)
+                               .ToList();
+            return Json(seats);
         }
     }
 }
